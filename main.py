@@ -45,10 +45,10 @@ print("\n")
 
 layers = [input_layer_size]
 for i in range(num_of_hidden_layers):
-    layers = layers +  [int(input('Please select the number nodes for the ' + str(i+1) + ' hidden layers: '))]
+    layers = layers + [int(input('Please select the number nodes for the ' + str(i+1) + ' hidden layers: '))]
 layers = layers + [num_labels]
 
-# input('\nProgram paused. Press enter to continue!!!')
+input('\nProgram paused. Press enter to continue!!!')
 
 print("\nInitializing Neural Network Parameters ...\n")
 
@@ -135,15 +135,15 @@ input('\nProgram paused. Press enter to continue!!!')
 print("\nTraining Neural Network... \n")
 
 #  You should also try different values of the regularization factor
-lambd = 3.0
+lambd = 3
 
-res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, 1.0), maxfun = 50, factr = 1., disp = True)
+res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, lambd), maxfun = 3, factr = 1., disp = True)
 Theta = roll_params(res[0], layers)
 
 input('\nProgram paused. Press enter to continue!!!')
 
 print("\nTesting Neural Network... \n")
 
-pred  = predict(Theta, images_test)
+pred  = predict(Theta, images_test, labels_test)
 print('\nAccuracy: ' + str(mean(labels_test==pred) * 100))
 
