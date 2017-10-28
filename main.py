@@ -135,9 +135,10 @@ input('\nProgram paused. Press enter to continue!!!')
 print("\nTraining Neural Network... \n")
 
 #  You should also try different values of the regularization factor
-lambd = 0
+lambd = 3
+maxfun = 1000
 
-res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, lambd), maxfun = 5, factr = 1., disp = True)
+res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, lambd), maxfun = maxfun, factr = 10., disp = True)
 Theta = roll_params(res[0], layers)
 
 input('\nProgram paused. Press enter to continue!!!')
@@ -145,5 +146,6 @@ input('\nProgram paused. Press enter to continue!!!')
 print("\nTesting Neural Network... \n")
 
 pred  = predict(Theta, images_test, labels_test)
+print('\nNetwork settings: Lambda:  '+ str(lambd) + ' || maxfun: ' + str(maxfun) + ' || schema: ' + str(layers[1:-1]))
 print('\nAccuracy: ' + str(mean(labels_test==pred) * 100))
 
