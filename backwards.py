@@ -57,8 +57,8 @@ def backwards(nn_weights, layers, X, y, num_labels, lambd):
     weights = []
     biases = []
     for x in range(0,len(layers)-1):
-        weights.append(Theta[x].transpose()[:-1])
-        biases.append(Theta[x].transpose()[-1])
+        weights.append(Theta[x].transpose()[1:])
+        biases.append(Theta[x].transpose()[0])
 
     for current_sample in range(0,len(X)):
         current_matrix = X[current_sample]
@@ -98,8 +98,8 @@ def backwards(nn_weights, layers, X, y, num_labels, lambd):
         
     accumulated_gradient_transposed = []
     for x in range(0,len(a_arrays)-1):
-        current_layer_accumulated_gradient = concatenate((accumulated_gradient[x], expand_dims(accumulated_bias_gradient[x],0).transpose()), axis=1)
-        current_layer_regularization_factor = concatenate((weights[x].transpose(), expand_dims(zeros(biases[x].shape),0).transpose()), axis=1)
+        current_layer_accumulated_gradient = concatenate((expand_dims(accumulated_bias_gradient[x],0).transpose(), accumulated_gradient[x]), axis=1)
+        current_layer_regularization_factor = concatenate((expand_dims(zeros(biases[x].shape),0).transpose(), weights[x].transpose()), axis=1)
         current_layer_regularization_factor = current_layer_regularization_factor * (lambd/m)
         current_layer_accumulated_gradient = current_layer_accumulated_gradient + current_layer_regularization_factor
         accumulated_gradient_transposed.append(current_layer_accumulated_gradient)

@@ -135,9 +135,9 @@ input('\nProgram paused. Press enter to continue!!!')
 print("\nTraining Neural Network... \n")
 
 #  You should also try different values of the regularization factor
-lambd = 3
+lambd = 0
 
-res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, lambd), maxfun = 3, factr = 1., disp = True)
+res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, lambd), maxfun = 5, factr = 1., disp = True)
 Theta = roll_params(res[0], layers)
 
 input('\nProgram paused. Press enter to continue!!!')

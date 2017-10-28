@@ -66,9 +66,12 @@ def costFunction(nn_weights, layers, X, y, num_labels, lambd):
 
     total_cross_entropy_sum = 0
     for i in range(0,total_amount_of_samples):
-        for j in range(0,num_labels):         
+        for j in range(0,num_labels):
             total_cross_entropy_sum = total_cross_entropy_sum + cross_entropy_loss(yv[i][j], current_matrix[i][j])
 
+    print('Cost here ---------------')
+    print(yv[i])
+    print(current_matrix[i])
 
     final_cross_entropy_loss = total_cross_entropy_sum/total_amount_of_samples
 

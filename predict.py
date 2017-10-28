@@ -14,8 +14,6 @@ def predict(Theta, X, labels_test):
     # You need to return the following variables correctly
     p = zeros((1,m))
 
-    print(Theta)
-
     weights = []
     biases = []
     for x in range(0,num_layers-1):
@@ -24,11 +22,20 @@ def predict(Theta, X, labels_test):
 
     index = 0
     for current_matrix in X:
+        # print('---------------- X')
+        # print(current_matrix.shape)
+        # print('----------------')
+        # for i in range(0, len(weights)-1):
+        #     print(weights[i].shape)
+        #     print(biases[i].shape)
+        # print('----------------')
+        feed_forward_matrix = current_matrix
         for i in range(0,num_layers-1):
-            current_matrix = dot(current_matrix, weights[i])
-            current_matrix = current_matrix + biases[i]
+            feed_forward_matrix = dot(feed_forward_matrix, weights[i])
+            feed_forward_matrix = feed_forward_matrix + biases[i]
+            feed_forward_matrix = sigmoid(feed_forward_matrix)
 
-        p[0][index] = argmax(current_matrix)
+        p[0][index] = argmax(feed_forward_matrix)
         # print(current_matrix)
         # print(str(argmax(current_matrix)) + ' || ' + str(labels_test[index]))
         index = index + 1
